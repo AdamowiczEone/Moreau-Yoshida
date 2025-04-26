@@ -61,7 +61,6 @@ def add_noise(img):
     return noisy_img
 
 
-img = cv2.imread("img_without_noise.jpg")
 # ?? какой именно алгоритм удаления шума использовать?
 def denoise(img):
     return cv2.GaussianBlur(img, (5, 5), 0)
