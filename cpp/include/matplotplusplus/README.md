@@ -9299,7 +9299,7 @@ If contributing with code, please leave the OpenGL backend and pedantic mode ON 
 
 </details>
 
-If contributing to the documentation, please edit [`README.md`](README.md) directly, as the files in [`./docs`](./docs) are automatically generated with [mdsplit](https://github.com/alandefreitas/mdsplit).
+If contributing to the documentation, please edit [`README.md`](README.md) directly, as the files in [`./docs`](docs) are automatically generated with [mdsplit](https://github.com/alandefreitas/mdsplit).
 
 ### Contributors
 
