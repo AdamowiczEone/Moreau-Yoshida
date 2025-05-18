@@ -102,8 +102,8 @@ def test_denoising(dataset_dir, output_dir, luma_values, chroma_values):
 
 
 if __name__ == "__main__":
-    dataset_dir = "dataset/STI/Classic"
-    output_dir = "output"
+    dataset_dir = "dataset/STI/Fingerprint"
+    output_dir = "output/Fingerprint"
     luma_values = [0.1, 0.5, 0.9]   # val for tests
     chroma_values = [0.1, 0.5, 0.9] # val for tests
     
