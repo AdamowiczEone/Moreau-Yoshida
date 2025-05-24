@@ -5,13 +5,6 @@ from skimage.io import imread
 from skimage.color import rgb2gray
 from skimage.metrics import structural_similarity as ssim
 
-RGB_TO_YUV = np.float32([
-    [0.2126, 0.7152, 0.0722],
-    [-0.09991, -0.33609, 0.436],
-    [0.615, -0.55861, -0.05639],
-])
-YUV_TO_RGB = np.linalg.inv(RGB_TO_YUV)
-
 # Проверка изображений
 def validate_images(original, compressed):
     if original is None or compressed is None:
@@ -103,7 +96,7 @@ def eval_loss_and_grad(image, orig_image, strength_luma=0.9, strength_chroma=0.9
 def tv_denoise_gradient_descent(image, strength_luma, strength_chroma,
                                 step_size=1e-2, tol=3.2e-3, iter=0,
                                 mu=0.01, use_morozov=False):
-    image = image @ RGB_TO_YUV.T
+    image = cv2.cvtColor(image, cv2.COLOR_RGB2YUV)
     orig_image = image.copy()
     momentum = np.zeros_like(image)
     momentum_beta = 0.9
@@ -136,7 +129,7 @@ def tv_denoise_gradient_descent(image, strength_luma, strength_chroma,
             momentum += grad * (1 - momentum_beta)
             image -= step_size_arr / (1 - momentum_beta ** i) * momentum
 
-    return image @ YUV_TO_RGB.T
+    return cv2.cvtColor(image, cv2.COLOR_YUV2RGB)
 
 # Основной запуск
 if __name__ == "__main__":
@@ -147,7 +140,7 @@ if __name__ == "__main__":
     image = cv2.imread(image_path).astype(np.float32) / 255
 
    # denoised_tv = tv_denoise_gradient_descent(image.copy(), 0.1, 0.1, iter=100, use_morozov=False)
-    denoised_my = tv_denoise_gradient_descent(image.copy(), 0.1, 0.1, iter=100, mu=0.009, use_morozov=True)
+    denoised_my = tv_denoise_gradient_descent(image.copy(), 0.1, 0.1, iter=300, mu=0.009, use_morozov=True)
 
   #  cv2.imwrite(output_tv, (denoised_tv * 255).clip(0, 255).astype(np.uint8))
     cv2.imwrite(output_my, (denoised_my * 255).clip(0, 255).astype(np.uint8))
