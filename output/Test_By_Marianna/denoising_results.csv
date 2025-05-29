@@ -1,0 +1,17 @@
+image,noise_type,denoising_method,strength_luma,strength_chroma,psnr,ssim,output_path
+cornfield.bmp,salt_pepper,TV,0.1,0.1,29.501607430595573,0.35722968818060974,output/Test_By_Marianna\cornfield_salt_pepper_luma0.10_chroma0.10_TV.png
+cornfield.bmp,salt_pepper,Moreau-Yosida,0.1,0.1,28.933953755079195,0.41201239621892133,output/Test_By_Marianna\cornfield_salt_pepper_luma0.10_chroma0.10_MoreauYosida.png
+cornfield.bmp,salt_pepper,TV,0.1,0.9,29.309403653357748,0.35559179939362423,output/Test_By_Marianna\cornfield_salt_pepper_luma0.10_chroma0.90_TV.png
+cornfield.bmp,salt_pepper,Moreau-Yosida,0.1,0.9,28.872232928399043,0.4079936930187554,output/Test_By_Marianna\cornfield_salt_pepper_luma0.10_chroma0.90_MoreauYosida.png
+cornfield.bmp,salt_pepper,TV,0.9,0.1,28.872879559540976,0.4581308305117447,output/Test_By_Marianna\cornfield_salt_pepper_luma0.90_chroma0.10_TV.png
+cornfield.bmp,salt_pepper,Moreau-Yosida,0.9,0.1,28.738616816946397,0.4004437354659165,output/Test_By_Marianna\cornfield_salt_pepper_luma0.90_chroma0.10_MoreauYosida.png
+cornfield.bmp,salt_pepper,TV,0.9,0.9,28.921213108978417,0.4592405147299088,output/Test_By_Marianna\cornfield_salt_pepper_luma0.90_chroma0.90_TV.png
+cornfield.bmp,salt_pepper,Moreau-Yosida,0.9,0.9,28.694042503638254,0.3981695909223447,output/Test_By_Marianna\cornfield_salt_pepper_luma0.90_chroma0.90_MoreauYosida.png
+cornfield.bmp,gaussian,TV,0.1,0.1,30.98948751201993,0.8169756479206197,output/Test_By_Marianna\cornfield_gaussian_luma0.10_chroma0.10_TV.png
+cornfield.bmp,gaussian,Moreau-Yosida,0.1,0.1,29.693913639792186,0.5325022430511317,output/Test_By_Marianna\cornfield_gaussian_luma0.10_chroma0.10_MoreauYosida.png
+cornfield.bmp,gaussian,TV,0.1,0.9,30.70663018484936,0.8233740631506353,output/Test_By_Marianna\cornfield_gaussian_luma0.10_chroma0.90_TV.png
+cornfield.bmp,gaussian,Moreau-Yosida,0.1,0.9,29.51865953401921,0.5383711820387219,output/Test_By_Marianna\cornfield_gaussian_luma0.10_chroma0.90_MoreauYosida.png
+cornfield.bmp,gaussian,TV,0.9,0.1,29.49070591116902,0.47151531242205597,output/Test_By_Marianna\cornfield_gaussian_luma0.90_chroma0.10_TV.png
+cornfield.bmp,gaussian,Moreau-Yosida,0.9,0.1,29.168603702210213,0.4424580652253648,output/Test_By_Marianna\cornfield_gaussian_luma0.90_chroma0.10_MoreauYosida.png
+cornfield.bmp,gaussian,TV,0.9,0.9,29.50957129611217,0.4727555056078904,output/Test_By_Marianna\cornfield_gaussian_luma0.90_chroma0.90_TV.png
+cornfield.bmp,gaussian,Moreau-Yosida,0.9,0.9,29.156117006173634,0.44454864756736306,output/Test_By_Marianna\cornfield_gaussian_luma0.90_chroma0.90_MoreauYosida.png
