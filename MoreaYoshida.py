@@ -97,6 +97,9 @@ def tv_denoise_gradient_descent(image, strength=0.1, step_size=1e-2, tol=3.2e-3,
             if i > 1 and loss_smoothed_debiased / loss < tol + 1:
                 break
             step = step_size / (strength + 1)
+
+            # momentum импульс
+            # momentum_beta коэфицент к импульсу
             momentum = momentum * momentum_beta + grad * (1 - momentum_beta)
             image -= step / (1 - momentum_beta ** i) * momentum
     else:
