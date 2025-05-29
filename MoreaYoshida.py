@@ -66,9 +66,9 @@ def my_tv_envelope(u, mu=0.001, prox_iter=20):
     grad = v
     return envelope, grad
 
-def eval_loss_and_grad(image, orig_image, strength=0.9, mu=0.01, use_morozov=False):
+def eval_loss_and_grad(image, orig_image, strength=0.9, mu=0.01, use=False):
     lp_loss, lp_grad = lp_norm(image, orig_image, 1, 2)
-    if use_morozov: # if true => MoreaYosida
+    if use: # if true => MoreaYosida
         tv_loss, tv_grad = my_tv_envelope(image, mu)
         loss =  tv_loss + lp_loss
         grad =  tv_grad + lp_grad
@@ -80,7 +80,7 @@ def eval_loss_and_grad(image, orig_image, strength=0.9, mu=0.01, use_morozov=Fal
     return loss, grad
 
 def tv_denoise_gradient_descent(image, strength=0.1, step_size=1e-2, tol=3.2e-3, iter=0,
-                                mu=0.01, use_morozov=False):
+                                mu=0.01, use=False):
     orig_image = image.copy()
     momentum = np.zeros_like(image)
     momentum_beta = 0.9
@@ -91,7 +91,7 @@ def tv_denoise_gradient_descent(image, strength=0.1, step_size=1e-2, tol=3.2e-3,
     if iter == 0:
         while True:
             i += 1
-            loss, grad = eval_loss_and_grad(image, orig_image, strength, mu, use_morozov)
+            loss, grad = eval_loss_and_grad(image, orig_image, strength, mu, use)
             loss_smoothed = loss_smoothed * loss_smoothing_beta + loss * (1 - loss_smoothing_beta)
             loss_smoothed_debiased = loss_smoothed / (1 - loss_smoothing_beta ** i)
             if i > 1 and loss_smoothed_debiased / loss < tol + 1:
@@ -101,7 +101,7 @@ def tv_denoise_gradient_descent(image, strength=0.1, step_size=1e-2, tol=3.2e-3,
             image -= step / (1 - momentum_beta ** i) * momentum
     else:
         for i in range(1, iter):
-            loss, grad = eval_loss_and_grad(image, orig_image, strength, mu, use_morozov)
+            loss, grad = eval_loss_and_grad(image, orig_image, strength, mu, use)
             step = step_size / (strength + 1)
             momentum = momentum * momentum_beta + grad * (1 - momentum_beta)
             image -= step / (1 - momentum_beta ** i) * momentum
@@ -116,8 +116,8 @@ if __name__ == "__main__":
 
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE).astype(np.float32) / 255.0
 
-    denoised = tv_denoise_gradient_descent(image.copy(), strength=0.1, iter=20, mu=0.01, use_morozov=True)
-    denoised_tv = tv_denoise_gradient_descent(image.copy(), strength=0.1, iter=100, mu=0.01, use_morozov=False)
+    denoised = tv_denoise_gradient_descent(image.copy(), strength=0.1, iter=20, mu=0.01, use=True)
+    denoised_tv = tv_denoise_gradient_descent(image.copy(), strength=0.1, iter=100, mu=0.01, use=False)
 
 
     cv2.imwrite(output_path, (denoised * 255).clip(0, 255).astype(np.uint8))
