@@ -68,11 +68,11 @@ def my_tv_envelope(u, mu=0.001, prox_iter=20):
 
 def eval_loss_and_grad(image, orig_image, strength=0.9, mu=0.01, use_morozov=False):
     lp_loss, lp_grad = lp_norm(image, orig_image, 1, 2)
-    if use_morozov:
+    if use_morozov: # if true => MoreaYosida
         tv_loss, tv_grad = my_tv_envelope(image, mu)
         loss =  tv_loss + lp_loss
         grad =  tv_grad + lp_grad
-    else:
+    else: # if false => TV
         tv_loss, tv_grad = tv_norm(image, l=1, p=2)
         loss =  strength *tv_loss + lp_loss
         grad =  strength*tv_grad + lp_grad
