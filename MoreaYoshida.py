@@ -4,6 +4,8 @@ from skimage.io import imread
 from skimage.color import rgb2gray
 from skimage.metrics import structural_similarity as ssim
 
+
+
 def validate_images(original, compressed):
     if original is None or compressed is None:
         raise ValueError("Одно или оба изображения не загружены")
@@ -31,7 +33,7 @@ def SSIM(original, compressed):
     validate_images(original, compressed)
     gray1 = to_grayscale(original)
     gray2 = to_grayscale(compressed)
-    score, _ = ssim(gray1, gray2, full=True, data_range=1.0)
+    score, _ = ssim(gray1, gray2, full=True) #data_range убрана, могут изменится результаты
     return score
 
 def tv_norm(image, eps=1e-8, l=1, p=2):
@@ -61,7 +63,7 @@ def prox_tv(u, weight, iter=10):
 
 def my_tv_envelope(u, mu=0.001, prox_iter=20):
     v = np.array(prox_tv(u, weight=mu, iter=prox_iter))
-    loss, _ = tv_norm(v)
+    loss, _ = tv_norm(v, p=2)
     envelope = loss + (1 / (2 * mu)) * np.sum((v - u) ** 2)
     grad = v
     return envelope, grad
